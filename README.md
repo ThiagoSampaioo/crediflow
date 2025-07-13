@@ -32,8 +32,8 @@ O sistema oferece uma jornada digital moderna com três perfis de acesso:
 ## 📦 Estrutura do Projeto
 
 ```bash
-crediflow/
+crediflow/      |   docker-compose up -d
 │
-├── backend/              # Quarkus (Java)
-├── frontend/             # React + MUI
+├── backend/              # Quarkus (Java)    |   ./mvnw compile quarkus:dev
+├── frontend/             # React + MUI       |   npm install | npm start
 ├── README.md
