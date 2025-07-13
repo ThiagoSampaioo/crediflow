@@ -16,13 +16,11 @@ public class Transaction {
     private Long id;
 
     @ManyToOne(optional = false)
-    @Column(nullable = true)
-    @JoinColumn(name = "from_account_id")
+    @JoinColumn(name = "from_account_id", nullable = true)
     private BankAccount fromAccount;
 
     @ManyToOne(optional = false)
-    @Column(nullable = true)
-    @JoinColumn(name = "to_account_id")
+    @JoinColumn(name = "to_account_id", nullable = true)
     private BankAccount toAccount;
 
     @Column(nullable = false)
@@ -39,27 +37,67 @@ public class Transaction {
     private String description;
 
     // Getters e Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public BankAccount getFromAccount() { return fromAccount; }
-    public void setFromAccount(BankAccount fromAccount) { this.fromAccount = fromAccount; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public BankAccount getToAccount() { return toAccount; }
-    public void setToAccount(BankAccount toAccount) { this.toAccount = toAccount; }
+    public BankAccount getFromAccount() {
+        return fromAccount;
+    }
 
-    public BigDecimal getAmount() { return amount; }
-    public void setAmount(BigDecimal amount) { this.amount = amount; }
+    public void setFromAccount(BankAccount fromAccount) {
+        this.fromAccount = fromAccount;
+    }
 
-    public TransactionType getType() { return type; }
-    public void setType(TransactionType type) { this.type = type; }
+    public BankAccount getToAccount() {
+        return toAccount;
+    }
 
-    public TransactionStatus getStatus() { return status; }
-    public void setStatus(TransactionStatus status) { this.status = status; }
+    public void setToAccount(BankAccount toAccount) {
+        this.toAccount = toAccount;
+    }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public BigDecimal getAmount() {
+        return amount;
+    }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public TransactionType getType() {
+        return type;
+    }
+
+    public void setType(TransactionType type) {
+        this.type = type;
+    }
+
+    public TransactionStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TransactionStatus status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

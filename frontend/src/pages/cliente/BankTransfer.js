@@ -229,7 +229,9 @@ const BankTransfer = () => {
           <Typography variant="body2">Li e aceito os termos de uso</Typography>
         </Box>
 
-        <Button type="submit" variant="contained" fullWidth size="large" sx={{ mt: 3, py: 1.5 }}>
+        <Button type="submit" variant="contained" fullWidth size="large" sx={{ mt: 3, py: 1.5 }} 
+        //se for transferencia via pix e não tiver chave, desabilita o botão
+          disabled={(method === "pix" && !form.pixKey) || (method === "account" && (!form.agencyNumber || !form.accountNumber)) || !form.amount || !form.acceptedTerms}>
           Confirmar Transação
         </Button>
       </Box>

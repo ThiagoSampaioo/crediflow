@@ -132,7 +132,26 @@ const EmployeeForm = () => {
           <Typography variant="h6" gutterBottom>Endereço</Typography>
           <Divider sx={{ mb: 2 }} />
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={4}><TextField size="small" name="zipCode" fullWidth label="CEP" value={formData.zipCode} onChange={handleChange} /></Grid>
+            <Grid item xs={12} sm={4}><TextField size="small" name="zipCode" fullWidth label="CEP" value={formData.zipCode} 
+            onChange={async (e)=> {
+              await handleChange(e)
+              if (e.target.value.length === 9) { // Verifica se o CEP tem 9 caracteres
+                try {
+                  const response = await api.get(`/cep/${e.target.value}`);
+                  const { street, neighborhood, city, state } = response;
+                  setFormData((prev) => ({
+                    ...prev,
+                    street,
+                    neighborhood,
+                    city,
+                    state
+                  }));
+                } catch (error) {
+                  showSnackbar("Erro ao buscar endereço pelo CEP: " + error.message, "error");
+                }
+              }
+            }} 
+            /></Grid>
             <Grid item xs={12} sm={8}><TextField size="small" name="street" fullWidth label="Rua" value={formData.street} onChange={handleChange} /></Grid>
             <Grid item xs={12} sm={4}><TextField size="small" name="streetNumber" fullWidth label="Número" value={formData.streetNumber} onChange={handleChange} /></Grid>
             <Grid item xs={12} sm={8}><TextField size="small" name="neighborhood" fullWidth label="Bairro" value={formData.neighborhood} onChange={handleChange} /></Grid>
