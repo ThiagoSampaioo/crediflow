@@ -1,0 +1,2715 @@
+{
+  "openapi" : "3.1.0",
+  "paths" : {
+    "/auth/login" : {
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/x-www-form-urlencoded" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "username" : {
+                    "type" : "string"
+                  },
+                  "password" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Login",
+        "tags" : [ "Auth Resource" ]
+      }
+    },
+    "/auth/toggle/{id}" : {
+      "put" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "enabled",
+          "in" : "query",
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "summary" : "Toggle User Status",
+        "tags" : [ "Auth Resource" ]
+      }
+    },
+    "/bank-accounts" : {
+      "put" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/BankAccountRequestDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Update",
+        "tags" : [ "Bank Account Controller" ]
+      },
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/BankAccountRequestDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Create",
+        "tags" : [ "Bank Account Controller" ]
+      }
+    },
+    "/bank-accounts/account-info/agency" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "account",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "agency",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AccountRecipientInfoDTO"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get By Agency And Account",
+        "tags" : [ "Bank Account Controller" ]
+      }
+    },
+    "/bank-accounts/account-info/pix" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AccountRecipientInfoDTO"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get By Pix Key",
+        "tags" : [ "Bank Account Controller" ]
+      }
+    },
+    "/bank-accounts/by-account-number/{accountNumber}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "accountNumber",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "summary" : "Get By Account Number",
+        "tags" : [ "Bank Account Controller" ]
+      }
+    },
+    "/bank-accounts/by-customer/{customerId}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "customerId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "summary" : "Get By Customer",
+        "tags" : [ "Bank Account Controller" ]
+      }
+    },
+    "/bank-accounts/{id}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "summary" : "Get By Id",
+        "tags" : [ "Bank Account Controller" ]
+      },
+      "delete" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "summary" : "Delete",
+        "tags" : [ "Bank Account Controller" ]
+      }
+    },
+    "/companies" : {
+      "get" : {
+        "summary" : "Listar empresas com paginação",
+        "tags" : [ "Companies" ],
+        "parameters" : [ {
+          "description" : "Número da página (começa em 0)",
+          "name" : "page",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 0
+          }
+        }, {
+          "description" : "Quantidade de itens por página",
+          "name" : "size",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 10
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PagedResultCompanyResponseDTO"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin", "company" ]
+        } ]
+      },
+      "post" : {
+        "summary" : "Criar nova empresa conveniada",
+        "tags" : [ "Companies" ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CompanyRequestDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Empresa criada com sucesso"
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin", "company" ]
+        } ]
+      }
+    },
+    "/companies/keycloak/{keycloakId}" : {
+      "get" : {
+        "summary" : "Buscar empresa por ID do Keycloak",
+        "tags" : [ "Companies" ],
+        "parameters" : [ {
+          "name" : "keycloakId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin", "company" ]
+        } ]
+      }
+    },
+    "/companies/search" : {
+      "get" : {
+        "summary" : "Buscar empresa por nome, CNPJ ou e-mail com paginação",
+        "tags" : [ "Companies" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 0
+          }
+        }, {
+          "name" : "query",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 10
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PagedResultCompanyResponseDTO"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin", "company" ]
+        } ]
+      }
+    },
+    "/companies/{id}" : {
+      "put" : {
+        "summary" : "Atualizar dados da empresa",
+        "tags" : [ "Companies" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CompanyRequestDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Empresa atualizada"
+          },
+          "404" : {
+            "description" : "Empresa não encontrada"
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin", "company" ]
+        } ]
+      },
+      "get" : {
+        "summary" : "Buscar empresa por ID",
+        "tags" : [ "Companies" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Empresa encontrada"
+          },
+          "404" : {
+            "description" : "Empresa não encontrada"
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin", "company" ]
+        } ]
+      },
+      "delete" : {
+        "summary" : "Remover empresa do sistema",
+        "tags" : [ "Companies" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Empresa removida"
+          },
+          "404" : {
+            "description" : "Empresa não encontrada"
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin", "company" ]
+        } ]
+      }
+    },
+    "/customers" : {
+      "get" : {
+        "summary" : "Listar todos os clientes",
+        "tags" : [ "Customers" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/CustomerResponseDTO"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin", "company" ]
+        } ]
+      },
+      "post" : {
+        "summary" : "Criar novo cliente",
+        "tags" : [ "Customers" ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CustomerRequestDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Cliente criado com sucesso"
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin", "company" ]
+        } ]
+      }
+    },
+    "/customers/company/{keycloakId}" : {
+      "get" : {
+        "summary" : "Buscar clientes por ID da empresa",
+        "tags" : [ "Customers" ],
+        "parameters" : [ {
+          "name" : "keycloakId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 0
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 10
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Clientes encontrados",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PagedResultCustomerResponseDTO"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Empresa não encontrada"
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin", "company" ]
+        } ]
+      }
+    },
+    "/customers/keycloak/{keycloakId}" : {
+      "get" : {
+        "summary" : "Buscar cliente por ID do Keycloak",
+        "tags" : [ "Customers" ],
+        "parameters" : [ {
+          "name" : "keycloakId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Cliente encontrado"
+          },
+          "404" : {
+            "description" : "Cliente não encontrado"
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "client" ]
+        } ]
+      }
+    },
+    "/customers/paged" : {
+      "get" : {
+        "summary" : "Listar clientes paginados",
+        "tags" : [ "Customers" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 0
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 10
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PagedResultCustomerResponseDTO"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin", "company" ]
+        } ]
+      }
+    },
+    "/customers/search" : {
+      "get" : {
+        "summary" : "Buscar clientes por nome, CPF ou e-mail com paginação",
+        "tags" : [ "Customers" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 0
+          }
+        }, {
+          "name" : "query",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 10
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PagedResultCustomerResponseDTO"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin", "company" ]
+        } ]
+      }
+    },
+    "/customers/{id}" : {
+      "put" : {
+        "summary" : "Atualizar cliente",
+        "tags" : [ "Customers" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CustomerRequestDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Cliente atualizado com sucesso"
+          },
+          "404" : {
+            "description" : "Cliente não encontrado"
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin", "company" ]
+        } ]
+      },
+      "get" : {
+        "summary" : "Buscar cliente por ID",
+        "tags" : [ "Customers" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Cliente encontrado"
+          },
+          "404" : {
+            "description" : "Cliente não encontrado"
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin", "company" ]
+        } ]
+      },
+      "delete" : {
+        "summary" : "Excluir cliente",
+        "tags" : [ "Customers" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Cliente removido com sucesso"
+          },
+          "404" : {
+            "description" : "Cliente não encontrado"
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin", "company" ]
+        } ]
+      }
+    },
+    "/hello" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Hello",
+        "tags" : [ "Greeting Resource" ]
+      }
+    },
+    "/loan-proposals" : {
+      "get" : {
+        "summary" : "Listar todas as propostas",
+        "tags" : [ "Loan Proposals" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/LoanProposalResponseDTO"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin" ]
+        } ]
+      },
+      "post" : {
+        "summary" : "Criar uma nova proposta de crédito",
+        "tags" : [ "Loan Proposals" ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/LoanProposalRequestDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/LoanSimulationResultDTO"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin", "client" ]
+        } ]
+      }
+    },
+    "/loan-proposals/available-margin/{customerId}" : {
+      "get" : {
+        "summary" : "Obter margem disponível para o cliente",
+        "tags" : [ "Loan Proposals" ],
+        "parameters" : [ {
+          "name" : "customerId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "number"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin", "client" ]
+        } ]
+      }
+    },
+    "/loan-proposals/installments-pay/{installmentId}/pay/{accountId}/receipt" : {
+      "post" : {
+        "summary" : "Pagar parcela e retornar comprovante em PDF",
+        "tags" : [ "Loan Proposals" ],
+        "parameters" : [ {
+          "name" : "accountId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "installmentId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "client", "admin" ]
+        } ]
+      }
+    },
+    "/loan-proposals/installments/pay" : {
+      "post" : {
+        "summary" : "Pagar uma parcela específica de uma proposta",
+        "tags" : [ "Loan Proposals" ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PayInstallmentRequestDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "client", "admin" ]
+        } ]
+      }
+    },
+    "/loan-proposals/my-proposals" : {
+      "get" : {
+        "summary" : "Listar propostas do cliente logado com paginação",
+        "tags" : [ "Loan Proposals" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 0
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 10
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PagedResultLoanProposalResponseDTO"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "client" ]
+        } ]
+      }
+    },
+    "/loan-proposals/paged" : {
+      "get" : {
+        "summary" : "Listar propostas com paginação e filtro por nome/cpf/email",
+        "tags" : [ "Loan Proposals" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 0
+          }
+        }, {
+          "name" : "search",
+          "in" : "query",
+          "schema" : {
+            "type" : "string",
+            "default" : ""
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 10
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PagedResultLoanProposalResponseDTO"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin", "client" ]
+        } ]
+      }
+    },
+    "/loan-proposals/simulate" : {
+      "post" : {
+        "summary" : "Simular uma nova proposta de crédito (sem persistir)",
+        "tags" : [ "Loan Proposals" ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/LoanProposalRequestDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/LoanSimulationResultDTO"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin", "client" ]
+        } ]
+      }
+    },
+    "/loan-proposals/{id}" : {
+      "put" : {
+        "tags" : [ "Loan Proposals" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/LoanProposalRequestDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/LoanProposalResponseDTO"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Update",
+        "security" : [ {
+          "SecurityScheme" : [ "admin" ]
+        } ]
+      }
+    },
+    "/loan-proposals/{id}/cancel" : {
+      "put" : {
+        "summary" : "Marcar proposta como cancelada",
+        "tags" : [ "Loan Proposals" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/LoanProposalResponseDTO"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin" ]
+        } ]
+      }
+    },
+    "/loan-proposals/{id}/ccb" : {
+      "get" : {
+        "summary" : "Obter detalhes da CCB (Contrato de Cessão de Crédito)",
+        "tags" : [ "Loan Proposals" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin", "company", "client" ]
+        } ]
+      }
+    },
+    "/loan-proposals/{id}/ccb-generate" : {
+      "get" : {
+        "summary" : "Gerar CCB (Contrato de Cessão de Crédito) em PDF",
+        "tags" : [ "Loan Proposals" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin", "company", "client" ]
+        } ]
+      }
+    },
+    "/loan-proposals/{id}/ccb-sign" : {
+      "get" : {
+        "summary" : "Assinar CCB (Contrato de Cessão de Crédito)",
+        "tags" : [ "Loan Proposals" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin", "company", "client" ]
+        } ]
+      }
+    },
+    "/loan-proposals/{id}/pay" : {
+      "put" : {
+        "summary" : "Marcar proposta como paga",
+        "tags" : [ "Loan Proposals" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/LoanProposalResponseDTO"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin" ]
+        } ]
+      }
+    },
+    "/loan-proposals/{id}/sign" : {
+      "put" : {
+        "summary" : "Confirmar assinatura da proposta",
+        "tags" : [ "Loan Proposals" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/LoanProposalResponseDTO"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "SecurityScheme" : [ "admin", "company, client" ]
+        } ]
+      }
+    },
+    "/pix-keys" : {
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PixKeyRequestDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Create",
+        "tags" : [ "Pix Key Controller" ]
+      }
+    },
+    "/pix-keys/account/{accountId}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "accountId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "summary" : "Get All By Account",
+        "tags" : [ "Pix Key Controller" ]
+      }
+    },
+    "/pix-keys/{id}" : {
+      "put" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PixKeyRequestDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Update",
+        "tags" : [ "Pix Key Controller" ]
+      },
+      "get" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "summary" : "Get By Id",
+        "tags" : [ "Pix Key Controller" ]
+      },
+      "delete" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "summary" : "Delete",
+        "tags" : [ "Pix Key Controller" ]
+      }
+    },
+    "/transactions" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "summary" : "List All",
+        "tags" : [ "Transaction Controller" ]
+      }
+    },
+    "/transactions/by-account/{accountId}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "accountId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 0
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 10
+          }
+        }, {
+          "name" : "status",
+          "in" : "query",
+          "schema" : {
+            "$ref" : "#/components/schemas/TransactionStatus"
+          }
+        }, {
+          "name" : "type",
+          "in" : "query",
+          "schema" : {
+            "$ref" : "#/components/schemas/TransactionType"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "summary" : "Get Transactions Paged",
+        "tags" : [ "Transaction Controller" ]
+      }
+    },
+    "/transactions/deposit" : {
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/TransactionRequestDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Deposit",
+        "tags" : [ "Transaction Controller" ]
+      }
+    },
+    "/transactions/deposit/agency" : {
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/TransactionRequestDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Deposit By Agency",
+        "tags" : [ "Transaction Controller" ]
+      }
+    },
+    "/transactions/payment" : {
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/TransactionRequestDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Pay",
+        "tags" : [ "Transaction Controller" ]
+      }
+    },
+    "/transactions/pix" : {
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/TransactionRequestDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Pix Transfer",
+        "tags" : [ "Transaction Controller" ]
+      }
+    },
+    "/transactions/receipt/{id}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "summary" : "Get Receipt",
+        "tags" : [ "Transaction Controller" ]
+      }
+    },
+    "/transactions/transfer" : {
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/TransactionRequestDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Transfer",
+        "tags" : [ "Transaction Controller" ]
+      }
+    },
+    "/transactions/transfer/agency" : {
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/TransactionRequestDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Transfer By Agency",
+        "tags" : [ "Transaction Controller" ]
+      }
+    },
+    "/transactions/{id}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "summary" : "Get By Id",
+        "tags" : [ "Transaction Controller" ]
+      }
+    },
+    "/users" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "summary" : "Get All Users",
+        "tags" : [ "Keycloak User Resource" ]
+      }
+    },
+    "/users/role/{role}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "role",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "summary" : "Get Users By Role",
+        "tags" : [ "Keycloak User Resource" ]
+      }
+    },
+    "/users/with-role/{role}" : {
+      "post" : {
+        "parameters" : [ {
+          "name" : "role",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "additionalProperties" : { }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Create User With Role",
+        "tags" : [ "Keycloak User Resource" ]
+      }
+    },
+    "/users/{id}" : {
+      "put" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "additionalProperties" : { }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Update User",
+        "tags" : [ "Keycloak User Resource" ]
+      },
+      "delete" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "summary" : "Delete User",
+        "tags" : [ "Keycloak User Resource" ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "AccountRecipientInfoDTO" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "agencyNumber" : {
+            "type" : "string"
+          },
+          "accountNumber" : {
+            "type" : "string"
+          },
+          "pixKey" : {
+            "type" : "string"
+          },
+          "pixKeyType" : {
+            "type" : "string"
+          }
+        }
+      },
+      "BankAccountRequestDTO" : {
+        "type" : "object",
+        "properties" : {
+          "customerId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "accountNumber" : {
+            "type" : "string"
+          },
+          "agencyNumber" : {
+            "type" : "string"
+          }
+        }
+      },
+      "CompanyRequestDTO" : {
+        "type" : "object",
+        "required" : [ "name", "cnpj", "responsible", "email", "phone", "type" ],
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "pattern" : "\\S"
+          },
+          "cnpj" : {
+            "type" : "string",
+            "pattern" : "\\d{14}"
+          },
+          "responsible" : {
+            "type" : "string",
+            "pattern" : "\\S"
+          },
+          "email" : {
+            "type" : "string",
+            "pattern" : "\\S"
+          },
+          "phone" : {
+            "type" : "string",
+            "pattern" : "\\S"
+          },
+          "type" : {
+            "type" : "string",
+            "pattern" : "\\S"
+          }
+        }
+      },
+      "CompanyResponseDTO" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "keycloakId" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "cnpj" : {
+            "type" : "string"
+          },
+          "responsible" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "phone" : {
+            "type" : "string"
+          }
+        }
+      },
+      "CustomerRequestDTO" : {
+        "type" : "object",
+        "required" : [ "name", "cpf", "email", "phone", "companyId", "occupation", "street", "streetNumber", "city", "neighborhood", "state", "zipCode", "country" ],
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "pattern" : "\\S"
+          },
+          "cpf" : {
+            "type" : "string",
+            "pattern" : "^(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}|\\d{11})$",
+            "minLength" : 11,
+            "maxLength" : 14
+          },
+          "email" : {
+            "type" : "string",
+            "pattern" : "\\S"
+          },
+          "phone" : {
+            "type" : "string",
+            "pattern" : "^\\+?[0-9]{10,15}$"
+          },
+          "birthDate" : {
+            "$ref" : "#/components/schemas/LocalDate"
+          },
+          "companyId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "occupation" : {
+            "type" : "string",
+            "pattern" : "\\S"
+          },
+          "street" : {
+            "type" : "string",
+            "pattern" : "\\S"
+          },
+          "streetNumber" : {
+            "type" : "number",
+            "minimum" : 1
+          },
+          "city" : {
+            "type" : "string",
+            "pattern" : "\\S"
+          },
+          "neighborhood" : {
+            "type" : "string",
+            "pattern" : "\\S"
+          },
+          "state" : {
+            "type" : "string",
+            "pattern" : "\\S"
+          },
+          "zipCode" : {
+            "type" : "string",
+            "pattern" : "\\S"
+          },
+          "country" : {
+            "type" : "string",
+            "pattern" : "\\S"
+          },
+          "keycloakId" : {
+            "type" : "string"
+          },
+          "createdBy" : {
+            "type" : "string"
+          },
+          "updatedBy" : {
+            "type" : "string"
+          },
+          "createdAt" : {
+            "$ref" : "#/components/schemas/LocalDate"
+          },
+          "updatedAt" : {
+            "$ref" : "#/components/schemas/LocalDate"
+          },
+          "salary" : {
+            "type" : "number",
+            "exclusiveMinimum" : 0.0
+          }
+        }
+      },
+      "CustomerResponseDTO" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "keycloakId" : {
+            "type" : "string"
+          },
+          "enabled" : {
+            "type" : "boolean"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "cpf" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "phone" : {
+            "type" : "string"
+          },
+          "birthDate" : {
+            "$ref" : "#/components/schemas/LocalDate"
+          },
+          "companyId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "companyName" : {
+            "type" : "string"
+          },
+          "occupation" : {
+            "type" : "string"
+          },
+          "street" : {
+            "type" : "string"
+          },
+          "streetNumber" : {
+            "type" : "number"
+          },
+          "city" : {
+            "type" : "string"
+          },
+          "neighborhood" : {
+            "type" : "string"
+          },
+          "state" : {
+            "type" : "string"
+          },
+          "zipCode" : {
+            "type" : "string"
+          },
+          "country" : {
+            "type" : "string"
+          },
+          "createdBy" : {
+            "type" : "string"
+          },
+          "updatedBy" : {
+            "type" : "string"
+          },
+          "createdAt" : {
+            "$ref" : "#/components/schemas/LocalDate"
+          },
+          "updatedAt" : {
+            "$ref" : "#/components/schemas/LocalDate"
+          },
+          "virtualAccountNumber" : {
+            "type" : "string"
+          },
+          "virtualAgencyNumber" : {
+            "type" : "string"
+          },
+          "virtualBalance" : {
+            "type" : "number"
+          },
+          "salary" : {
+            "type" : "number"
+          }
+        }
+      },
+      "LoanInstallmentDTO" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "number" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "value" : {
+            "type" : "number"
+          },
+          "dueDate" : {
+            "$ref" : "#/components/schemas/LocalDate"
+          },
+          "iof" : {
+            "type" : "number"
+          },
+          "balance" : {
+            "type" : "number"
+          },
+          "interest" : {
+            "type" : "number"
+          },
+          "principal" : {
+            "type" : "number"
+          },
+          "additionalValue" : {
+            "type" : "number"
+          },
+          "presentValue" : {
+            "type" : "number"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "period" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "daysElapsed" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "daysLate" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "paidValue" : {
+            "type" : "number"
+          },
+          "paid" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "LoanProposalRequestDTO" : {
+        "type" : "object",
+        "required" : [ "customerId", "companyId", "requestedAmount", "availableLimit", "termInMonths", "convenioType", "monthlyInterestRate", "firstInstallmentDate", "modoSimulacao" ],
+        "properties" : {
+          "customerId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "companyId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "requestedAmount" : {
+            "type" : "number",
+            "minimum" : 0.0
+          },
+          "availableLimit" : {
+            "type" : "number",
+            "minimum" : 0.0
+          },
+          "termInMonths" : {
+            "type" : "integer",
+            "format" : "int32",
+            "maximum" : 96,
+            "minimum" : 1
+          },
+          "convenioType" : {
+            "type" : "string",
+            "pattern" : "\\S"
+          },
+          "monthlyInterestRate" : {
+            "type" : "number",
+            "minimum" : 0.0
+          },
+          "firstInstallmentDate" : {
+            "$ref" : "#/components/schemas/LocalDate"
+          },
+          "modoSimulacao" : {
+            "type" : "string",
+            "pattern" : "\\S"
+          },
+          "grossAmount" : {
+            "type" : "number"
+          },
+          "iofTotal" : {
+            "type" : "number"
+          },
+          "iofAnnualRate" : {
+            "type" : "number"
+          },
+          "iofAdditionalRate" : {
+            "type" : "number"
+          },
+          "proposalDate" : {
+            "$ref" : "#/components/schemas/LocalDate"
+          },
+          "tacValue" : {
+            "type" : "number"
+          },
+          "spread" : {
+            "type" : "number"
+          },
+          "effectiveMonthlyRate" : {
+            "type" : "number"
+          },
+          "effectiveAnnualRate" : {
+            "type" : "number"
+          },
+          "contractedAnnualRate" : {
+            "type" : "number"
+          },
+          "productType" : {
+            "type" : "string"
+          },
+          "fund" : {
+            "type" : "string"
+          },
+          "installmentType" : {
+            "type" : "string"
+          },
+          "disbursementValue" : {
+            "type" : "number"
+          },
+          "disbursementDate" : {
+            "$ref" : "#/components/schemas/LocalDate"
+          },
+          "processingCostTotal" : {
+            "type" : "number"
+          },
+          "amortizationType" : {
+            "type" : "string"
+          },
+          "interestComposition" : {
+            "type" : "string"
+          },
+          "ccb" : {
+            "type" : "string"
+          }
+        }
+      },
+      "LoanProposalResponseDTO" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "customerId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "companyId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "customerName" : {
+            "type" : "string"
+          },
+          "companyName" : {
+            "type" : "string"
+          },
+          "requestedAmount" : {
+            "type" : "number"
+          },
+          "availableLimit" : {
+            "type" : "number"
+          },
+          "termInMonths" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "convenioType" : {
+            "type" : "string"
+          },
+          "status" : {
+            "$ref" : "#/components/schemas/LoanProposalStatus"
+          },
+          "createdAt" : {
+            "$ref" : "#/components/schemas/LocalDateTime"
+          },
+          "updatedAt" : {
+            "$ref" : "#/components/schemas/LocalDateTime"
+          },
+          "installmentValue" : {
+            "type" : "number"
+          },
+          "totalPayment" : {
+            "type" : "number"
+          },
+          "financedAmount" : {
+            "type" : "number"
+          },
+          "monthlyRate" : {
+            "type" : "number"
+          },
+          "firstInstallmentDate" : {
+            "type" : "string"
+          },
+          "lastInstallmentDate" : {
+            "type" : "string"
+          },
+          "numberOfInstallments" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "grossAmount" : {
+            "type" : "number"
+          },
+          "iofTotal" : {
+            "type" : "number"
+          },
+          "iofAnnualRate" : {
+            "type" : "number"
+          },
+          "iofAdditionalRate" : {
+            "type" : "number"
+          },
+          "proposalDate" : {
+            "$ref" : "#/components/schemas/LocalDate"
+          },
+          "tacValue" : {
+            "type" : "number"
+          },
+          "spread" : {
+            "type" : "number"
+          },
+          "effectiveMonthlyRate" : {
+            "type" : "number"
+          },
+          "effectiveAnnualRate" : {
+            "type" : "number"
+          },
+          "contractedAnnualRate" : {
+            "type" : "number"
+          },
+          "productType" : {
+            "type" : "string"
+          },
+          "fund" : {
+            "type" : "string"
+          },
+          "installmentType" : {
+            "type" : "string"
+          },
+          "disbursementValue" : {
+            "type" : "number"
+          },
+          "disbursementDate" : {
+            "$ref" : "#/components/schemas/LocalDate"
+          },
+          "processingCostTotal" : {
+            "type" : "number"
+          },
+          "amortizationType" : {
+            "type" : "string"
+          },
+          "interestComposition" : {
+            "type" : "string"
+          },
+          "ccb" : {
+            "type" : "string"
+          },
+          "installments" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/LoanInstallmentDTO"
+            }
+          }
+        }
+      },
+      "LoanProposalStatus" : {
+        "type" : "string",
+        "enum" : [ "SIMULATED", "PENDING_SIGNATURE", "SIGNED", "UNDER_REVIEW", "APPROVED", "REJECTED", "PAID", "CANCELED" ]
+      },
+      "LoanSimulationResultDTO" : {
+        "type" : "object",
+        "properties" : {
+          "installmentValue" : {
+            "type" : "number"
+          },
+          "totalPayment" : {
+            "type" : "number"
+          },
+          "financedAmount" : {
+            "type" : "number"
+          },
+          "grossAmount" : {
+            "type" : "number"
+          },
+          "iofTotal" : {
+            "type" : "number"
+          },
+          "iofAnnualRate" : {
+            "type" : "number"
+          },
+          "iofAdditionalRate" : {
+            "type" : "number"
+          },
+          "proposalDate" : {
+            "$ref" : "#/components/schemas/LocalDate"
+          },
+          "firstInstallmentDate" : {
+            "$ref" : "#/components/schemas/LocalDate"
+          },
+          "lastInstallmentDate" : {
+            "$ref" : "#/components/schemas/LocalDate"
+          },
+          "numberOfInstallments" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "tacValue" : {
+            "type" : "number"
+          },
+          "spread" : {
+            "type" : "number"
+          },
+          "monthlyRate" : {
+            "type" : "number"
+          },
+          "effectiveMonthlyRate" : {
+            "type" : "number"
+          },
+          "effectiveAnnualRate" : {
+            "type" : "number"
+          },
+          "contractedAnnualRate" : {
+            "type" : "number"
+          },
+          "productType" : {
+            "type" : "string"
+          },
+          "fund" : {
+            "type" : "string"
+          },
+          "installmentType" : {
+            "type" : "string"
+          },
+          "disbursementValue" : {
+            "type" : "number"
+          },
+          "disbursementDate" : {
+            "$ref" : "#/components/schemas/LocalDate"
+          },
+          "processingCostTotal" : {
+            "type" : "number"
+          },
+          "amortizationType" : {
+            "type" : "string"
+          },
+          "interestComposition" : {
+            "type" : "string"
+          },
+          "ccb" : {
+            "type" : "string"
+          },
+          "proposal" : {
+            "type" : "string"
+          },
+          "installments" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/LoanInstallmentDTO"
+            }
+          }
+        }
+      },
+      "LocalDate" : {
+        "type" : "string",
+        "format" : "date",
+        "examples" : [ "2022-03-10" ]
+      },
+      "LocalDateTime" : {
+        "type" : "string",
+        "format" : "date-time",
+        "examples" : [ "2022-03-10T12:15:50" ]
+      },
+      "PagedResultCompanyResponseDTO" : {
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/CompanyResponseDTO"
+            }
+          },
+          "total" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "page" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "size" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
+      "PagedResultCustomerResponseDTO" : {
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/CustomerResponseDTO"
+            }
+          },
+          "total" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "page" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "size" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
+      "PagedResultLoanProposalResponseDTO" : {
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/LoanProposalResponseDTO"
+            }
+          },
+          "total" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "page" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "size" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      },
+      "PayInstallmentRequestDTO" : {
+        "type" : "object",
+        "properties" : {
+          "proposalId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "installmentNumber" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "bankAccountId" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }
+      },
+      "PixKeyRequestDTO" : {
+        "type" : "object",
+        "properties" : {
+          "pixKey" : {
+            "type" : "string"
+          },
+          "keyType" : {
+            "type" : "string"
+          },
+          "bankAccountId" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }
+      },
+      "TransactionRequestDTO" : {
+        "type" : "object",
+        "properties" : {
+          "fromAccountId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "toAccountId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "agencyNumber" : {
+            "type" : "string"
+          },
+          "accountNumber" : {
+            "type" : "string"
+          },
+          "pixKey" : {
+            "type" : "string"
+          },
+          "amount" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          }
+        }
+      },
+      "TransactionStatus" : {
+        "type" : "string",
+        "enum" : [ "COMPLETED", "FAILED" ]
+      },
+      "TransactionType" : {
+        "type" : "string",
+        "enum" : [ "PIX", "DEPOSIT", "TRANSFER", "LOAN_DISBURSEMENT", "BILL_PAYMENT", "LOAN_INSTALLMENT_PAYMENT", "PAYMENT" ]
+      }
+    },
+    "securitySchemes" : {
+      "SecurityScheme" : {
+        "type" : "openIdConnect",
+        "openIdConnectUrl" : "http://localhost:8080/realms/crediflow/.well-known/openid-configuration",
+        "description" : "Authentication"
+      }
+    }
+  },
+  "tags" : [ {
+    "name" : "Companies",
+    "description" : "Gerenciamento de empresas conveniadas"
+  }, {
+    "name" : "Customers",
+    "description" : "Gerenciamento de clientes conveniados"
+  }, {
+    "name" : "Loan Proposals",
+    "description" : "Gerenciamento de propostas de crédito consignado"
+  } ],
+  "info" : {
+    "title" : "backend API",
+    "version" : "1.0.0-SNAPSHOT"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:8082",
+    "description" : "Auto generated value"
+  }, {
+    "url" : "http://0.0.0.0:8082",
+    "description" : "Auto generated value"
+  } ]
+}

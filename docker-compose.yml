@@ -1,0 +1,43 @@
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql-crediflow
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: crediflow
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    container_name: adminer-crediflow
+    restart: always
+    ports:
+      - "8081:8080"
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:22.0.5
+    container_name: keycloak-crediflow
+    command: start-dev
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: mysql
+      KC_DB_URL_HOST: mysql
+      KC_DB_URL_DATABASE: crediflow
+      KC_DB_USERNAME: root
+      KC_DB_PASSWORD: root
+      
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    volumes:
+      - ./keycloak/mysql-connector-j-8.0.33.jar:/opt/keycloak/providers/mysql-connector-java-8.0.33.jar
+
+volumes:
+  mysql_data:
