@@ -53,6 +53,16 @@ https://www.linkedin.com/posts/thiago-sampaio-b62a3524b_crediflow-plataforma-de-
 <img width="390" height="843" alt="image" src="https://github.com/user-attachments/assets/3ef74787-3acf-437d-b779-3681cb4dc799" />
 <img width="386" height="842" alt="image" src="https://github.com/user-attachments/assets/b71ef945-de36-4cdc-b9af-937fb4c2ad38" />
 
+
+(CCB)
+
+
+<img width="634" height="861" alt="image" src="https://github.com/user-attachments/assets/5304e69f-8449-4dec-a252-f476fc3d6183" />
+<img width="635" height="844" alt="image" src="https://github.com/user-attachments/assets/77f7f108-016c-47aa-b968-265db478233c" />
+<img width="637" height="856" alt="image" src="https://github.com/user-attachments/assets/a7509cd3-27d7-4784-a5d3-a7c2e1479217" />
+
+
+
 ---
 
 ## 📦 Estrutura do Projeto
