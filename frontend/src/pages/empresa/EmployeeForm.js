@@ -16,6 +16,7 @@ import { useApi } from "../../services/api"
 import { useSnackbar } from "../../contexts/SnackbarContext"
 import EmployeeList from "./EmployeeList"
 import { useAuth } from "../../services/keycloak"
+import axios from "axios"
 
 const EmployeeForm = () => {
   const { id } = useParams()
@@ -137,14 +138,15 @@ const EmployeeForm = () => {
               await handleChange(e)
               if (e.target.value.length === 9) { // Verifica se o CEP tem 9 caracteres
                 try {
-                  const response = await api.get(`/cep/${e.target.value}`);
-                  const { street, neighborhood, city, state } = response;
+                  const response = await axios.get(`https://viacep.com.br/ws/${e.target.value.replace("-", "")}/json/`);
+                  const { logradouro, bairro, localidade, uf } = response.data;
+                  console.log("Dados do CEP:", response.data);
                   setFormData((prev) => ({
                     ...prev,
-                    street,
-                    neighborhood,
-                    city,
-                    state
+                    street: logradouro,
+                    neighborhood: bairro,
+                    city: localidade,
+                    state: uf
                   }));
                 } catch (error) {
                   showSnackbar("Erro ao buscar endereço pelo CEP: " + error.message, "error");
