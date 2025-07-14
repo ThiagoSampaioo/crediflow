@@ -15,7 +15,7 @@ O sistema oferece uma jornada digital moderna com três perfis de acesso:
 | Camada         | Tecnologia                                                  |
 |----------------|-------------------------------------------------------------|
 | Frontend       | React, Material UI, Axios, React Router                     |
-| Backend        | Java 17, Quarkus, Hibernate (JPA), MySQL, JWT, OpenAPI      |
+| Backend        | Java 21, Quarkus, Hibernate (JPA), MySQL, JWT, OpenAPI      |
 | Autenticação   | Keycloak (controle de roles: admin, empresa, cliente)       |
 | Outros         | Docker, Multitenancy via `tenant_code`, Swagger             |
 
